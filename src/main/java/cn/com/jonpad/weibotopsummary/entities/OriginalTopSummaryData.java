@@ -20,8 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class OriginalTopSummaryData {
-    private long id;
-    private long createDateTime;
+    private Long id;
+    private Long createDateTime;
     private String dataSource;
     private String originalHtml;
     @TableField(exist = false)

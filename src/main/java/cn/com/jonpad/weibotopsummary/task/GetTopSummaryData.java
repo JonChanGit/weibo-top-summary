@@ -39,7 +39,8 @@ public class GetTopSummaryData {
 		Document doc = Jsoup.connect("https://s.weibo.com/top/summary").get();
 		log.info(doc.title());
 		Elements tr = doc.select("#pl_top_realtimehot table tbody tr");
-		OriginalTopSummaryData data = new OriginalTopSummaryData(0,
+		OriginalTopSummaryData data = new OriginalTopSummaryData(
+				null,
 				System.currentTimeMillis(),
 				null,
 				tr.toString(),
@@ -50,12 +51,13 @@ public class GetTopSummaryData {
 			Elements td02 = item.select(".td-02");
 			Elements td02A = td02.select("a");
 			Elements td03 = item.select(".td-03 i");
-			TopSummaryData e = new TopSummaryData(0,
+			TopSummaryData e = new TopSummaryData(
+					null,
 					td02A.html(),
 					td03.html(),
 					td02A.attr("href"),
 					td02.select("span").html(),
-					0
+					null
 			);
 			list.add(e);
 		});

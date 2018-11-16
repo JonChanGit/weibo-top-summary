@@ -1,11 +1,14 @@
 package cn.com.jonpad.weibotopsummary.service;
 
 import cn.com.jonpad.weibotopsummary.entities.OriginalTopSummaryData;
+import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
 import cn.com.jonpad.weibotopsummary.mapper.OriginalTopSummaryDataMapper;
 import cn.com.jonpad.weibotopsummary.mapper.TopSummaryDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Jon Chan
@@ -14,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SummaryDataService {
 	@Autowired
-	private OriginalTopSummaryDataMapper originalTopSummaryDataMapper;
+	private OriginalTopSummaryDataService originalTopSummaryDataService;
 	@Autowired
-	private TopSummaryDataMapper topSummaryDataMapper;
+	private TopSummaryDataService topSummaryDataService;
 
 	/**
 	 *
@@ -24,7 +27,9 @@ public class SummaryDataService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public void insert(OriginalTopSummaryData data){
-		originalTopSummaryDataMapper.insert(data);
-		//topSummaryDataMapper.
+		originalTopSummaryDataService.save(data);
+		List<TopSummaryData> dataList = data.getDataList();
+		dataList.forEach(item -> item.setOriginalDataId(data.getId()));
+		topSummaryDataService.saveBatch(dataList);
 	}
 }

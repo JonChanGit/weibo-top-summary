@@ -112,7 +112,7 @@ public class MyBatisPlusCodeGenerator {
 				.setControllerMappingHyphenStyle(true)
 				.setTablePrefix(StringUtils.isEmpty(pc.getModuleName()) || "null".equals(pc.getModuleName().trim())?"": pc.getModuleName()+ "_");
 		mpg.setStrategy(strategy);
-		// mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+		mpg.setTemplateEngine(new FreemarkerTemplateEngine());
 		mpg.execute();
 	}
 }
