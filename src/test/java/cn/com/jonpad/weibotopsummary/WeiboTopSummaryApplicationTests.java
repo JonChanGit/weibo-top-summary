@@ -29,15 +29,8 @@ public class WeiboTopSummaryApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		User user = new User(10L, "name", 0, "@qq.com");
-		userMapper.insert(user);
-		System.out.println(("----- selectAll method test ------"));
-		List<User> userList = userMapper.selectList(null);
-		Assert.assertEquals(6, userList.size());
-		userList.forEach(System.out::println);
 	}
 	@Test
 	public void jsoupTest() throws Exception {
-		service.executeGetData();
 	}
 }

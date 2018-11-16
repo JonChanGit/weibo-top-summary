@@ -4,6 +4,7 @@ import cn.com.jonpad.weibotopsummary.entities.OriginalTopSummaryData;
 import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
 import cn.com.jonpad.weibotopsummary.mapper.OriginalTopSummaryDataMapper;
 import cn.com.jonpad.weibotopsummary.mapper.TopSummaryDataMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author Jon Chan
  * @date 2018/11/16 22:15
  */
+@Slf4j
 @Service
 public class SummaryDataService {
 	@Autowired
@@ -31,5 +33,6 @@ public class SummaryDataService {
 		List<TopSummaryData> dataList = data.getDataList();
 		dataList.forEach(item -> item.setOriginalDataId(data.getId()));
 		topSummaryDataService.saveBatch(dataList);
+		log.info("Operation completed! {} items",dataList.size());
 	}
 }

@@ -15,7 +15,7 @@ import cn.com.jonpad.weibotopsummary.task.GetTopSummaryData;
 public class WeiboTopSummaryTests {
     @Test
     public void jsoupTest() throws IOException {
-        GetTopSummaryData.getTopSummaryData();
+        // GetTopSummaryData.getTopSummaryData();
     }
 
 }

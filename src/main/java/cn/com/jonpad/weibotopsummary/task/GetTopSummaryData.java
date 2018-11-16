@@ -27,11 +27,11 @@ public class GetTopSummaryData {
 	@Autowired
 	private SummaryDataService service;
 
-	@Scheduled(cron = "5 * * * * *")
+	@Scheduled(cron = "0 5 * * * *")
+	@Scheduled(cron = "0 35 * * * *")
 	public void executeGetData() throws Exception{
 		log.info("executeGetData");
 		OriginalTopSummaryData data = getTopSummaryData();
-		data.getDataList().forEach(System.out::println);
 		service.insert(data);
 	}
 
