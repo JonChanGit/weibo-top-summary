@@ -2,6 +2,8 @@ package cn.com.jonpad.weibotopsummary;
 
 import cn.com.jonpad.weibotopsummary.entities.User;
 import cn.com.jonpad.weibotopsummary.mapper.UserMapper;
+import cn.com.jonpad.weibotopsummary.service.SummaryDataService;
+import cn.com.jonpad.weibotopsummary.task.GetTopSummaryData;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +24,8 @@ public class WeiboTopSummaryApplicationTests {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private GetTopSummaryData service;
 
 	@Test
 	public void contextLoads() {
@@ -33,10 +37,7 @@ public class WeiboTopSummaryApplicationTests {
 		userList.forEach(System.out::println);
 	}
 	@Test
-	public void jsoupTest() throws IOException {
-		Document doc = Jsoup.connect("https://s.weibo.com/top/summary").get();
-		log.info(doc.title());
-		log.info(doc.toString());
-
+	public void jsoupTest() throws Exception {
+		service.executeGetData();
 	}
 }
