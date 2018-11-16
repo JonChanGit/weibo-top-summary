@@ -1,5 +1,8 @@
 package cn.com.jonpad.weibotopsummary.entities;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,11 +17,13 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@TableName("top_summary_data")
 public class TopSummaryData {
-    private Long id;
+    @TableId(type = IdType.AUTO)
+    private Long  id;
     private String content;
     private String hots;
     private String link;
     private String mark;
-    private Long originalDataId;
+    private Long  originalDataId;
 }

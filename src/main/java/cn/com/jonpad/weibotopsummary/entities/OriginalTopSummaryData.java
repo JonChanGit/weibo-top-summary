@@ -1,7 +1,6 @@
 package cn.com.jonpad.weibotopsummary.entities;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@TableName("original_top_summary_data")
 public class OriginalTopSummaryData {
+	@TableId(type = IdType.AUTO)
     private Long id;
     private Long createDateTime;
     private String dataSource;
