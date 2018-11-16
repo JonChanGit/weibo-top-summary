@@ -5,7 +5,7 @@
 
 	<groupId>cn.com.jonpad</groupId>
 	<artifactId>weibo-top-summary</artifactId>
-	<version>0.1.0-Hydrogen</version>
+	<version>0.1.1-Hydrogen</version>
 	<packaging>jar</packaging>
 
 	<name>weibo-top-summary</name>
