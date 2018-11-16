@@ -11,10 +11,10 @@ CREATE TABLE user
 
 
 CREATE TABLE `m_original_data` (
-  `p_i_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `l_create_date_time` bigint(20) DEFAULT NULL,
-  `i_data_source` int(11) DEFAULT NULL,
-  `c_original_html` longtext,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date_time` bigint(20) DEFAULT NULL,
+  `data_source` int(11) DEFAULT NULL,
+  `original_html` longtext,
   PRIMARY KEY (`p_i_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6095 DEFAULT CHARSET=utf8;
 
