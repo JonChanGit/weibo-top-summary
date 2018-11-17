@@ -1,7 +1,14 @@
 spring:
+  application:
+    name: weibo-top-summary
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+app:
+  client-id: clientapp
+  client-secret: 123456
+  auth-server: http://zuul-gateway:8088/authentication-service

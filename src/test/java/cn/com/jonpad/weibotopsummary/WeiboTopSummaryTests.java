@@ -18,4 +18,14 @@ public class WeiboTopSummaryTests {
         // GetTopSummaryData.getTopSummaryData();
     }
 
+    @Test
+    public void updateId(){
+        StringBuilder str = new StringBuilder();
+        int count = 0;
+        for (int idx = 307899; idx <= 309122; idx ++ ){
+            str.append(String.format("UPDATE top_summary_data set id = %d WHERE id = %d ; \n\r",++count,idx));
+        }
+        System.out.println(str);
+    }
+
 }

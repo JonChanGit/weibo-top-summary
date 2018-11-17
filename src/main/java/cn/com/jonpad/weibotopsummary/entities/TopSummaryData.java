@@ -3,6 +3,8 @@ package cn.com.jonpad.weibotopsummary.entities;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,13 +19,16 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@ApiModel(description = "解析数据")
 @TableName("top_summary_data")
 public class TopSummaryData {
     @TableId(type = IdType.AUTO)
     private Long  id;
     private String content;
+    @ApiModelProperty(notes = "热度值，为空表示被官方置顶数据", example = "832792")
     private String hots;
     private String link;
+    @ApiModelProperty(notes = "微博标记", example = "爆")
     private String mark;
     private Long  originalDataId;
 }
