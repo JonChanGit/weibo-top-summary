@@ -45,7 +45,7 @@ public class TopSummaryDataController {
     @ApiOperation(value="获取最后一份数据", notes="获取最后一份数据")
     public ResponseResult<List<TopSummaryData>> getLast(
             @ApiParam("个数,最大数量为官方发布的数量，通常是51")
-            @RequestParam Integer size
+            @RequestParam(required = false) Integer size
     ){
         return ResponseResult.ok(service.getLast(size));
     }

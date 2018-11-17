@@ -39,7 +39,7 @@ public class SummaryDataService {
     public List<TopSummaryData> getLast(Integer size) {
         OriginalTopSummaryData last = originalTopSummaryDataService.getLast();
         List<TopSummaryData> list = last.getDataList();
-        if (size == null || 0 <= size) {
+        if (size == null || 0 >= size) {
             return list;
         }else {
             List<TopSummaryData> collect = list.stream().limit(size - 1).collect(Collectors.toList());
@@ -56,7 +56,15 @@ public class SummaryDataService {
             if (one.isPresent()){
                 collect.add(one.get());
             }
+            collect = collect.stream().map(item->{
+                if(!StringUtils.isEmpty(item.getLink())){
+                    if (item.getLink().trim().startsWith("javascript")) {
+                        item.setLink("");
+                    }
+                }
+                return item;
+            }).collect(Collectors.toList());
+            return collect;
         }
-        return list;
     }
 }

@@ -1,6 +1,8 @@
 package cn.com.jonpad.weibotopsummary.entities;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -30,5 +32,6 @@ public class TopSummaryData {
     private String link;
     @ApiModelProperty(notes = "微博标记", example = "爆")
     private String mark;
+    @JSONField(deserialize = false)
     private Long  originalDataId;
 }
