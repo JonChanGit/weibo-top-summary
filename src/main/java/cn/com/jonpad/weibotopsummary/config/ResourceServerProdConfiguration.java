@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 public class ResourceServerProdConfiguration extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/v2/api-docs", "/swagger-resources/**",  "/swagger-ui.html**", "/webjars/**", "/top-summary", "favicon.ico").permitAll()
+        http.authorizeRequests().antMatchers("/v2/api-docs", "/swagger-resources/**",  "/swagger-ui.html**", "/webjars/**", "/top-summary", "/bing", "favicon.ico").permitAll()
                 .and().authorizeRequests().antMatchers("/actuator/**").hasAuthority("SUPPER").antMatchers("/**").authenticated();
     }
 }

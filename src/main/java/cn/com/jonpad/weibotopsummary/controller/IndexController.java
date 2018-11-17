@@ -1,6 +1,8 @@
 package cn.com.jonpad.weibotopsummary.controller;
 
 
+import cn.com.jonpad.weibotopsummary.entities.BingImage;
+import cn.com.jonpad.weibotopsummary.task.GetBingData;
 import cn.com.jonpad.weibotopsummary.to.Bing;
 import cn.com.jonpad.weibotopsummary.to.ResponseResult;
 import com.alibaba.fastjson.JSON;
@@ -14,6 +16,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,37 +38,20 @@ import javax.annotation.Resource;
 @Slf4j
 public class IndexController {
 
-    @Resource(name = "httpClientManagerFactoryBen")
-    private CloseableHttpClient client;
+    @Autowired
+    GetBingData getBing;
 
     @GetMapping("bing")
     @ApiOperation(value="转发Bing接口", notes="转发Bing接口")
     public ResponseResult<Bing> bing(
             @ApiParam("个数,最大8")
             @RequestParam(required = false) Integer size){
-        HttpEntity entity = null;
-        String str = "";
-        try {
-            String url = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=1&n=1";
-            if(size != null){
-                url = String.format("https://cn.bing.com/HPImageArchive.aspx?format=js&idx=1&n=%d", size);
-            }
-            HttpGet get = new HttpGet(url);
-            CloseableHttpResponse execute = client.execute(get);
-            entity = execute.getEntity();
-            str = EntityUtils.toString(entity, Consts.UTF_8);
-            log.info("Forward Bing interface Completed !");
-        }catch (Exception e){
-            log.error("ERROR",e);
-        }finally {
-            if(entity != null){
-                EntityUtils.consumeQuietly(entity);
-            }
-        }
+        String str = getBing.getBingData(size, BingImage.RegionMeta.EN_US);
         if(StringUtils.isEmpty(str)){
             return ResponseResult.faill();
         }
         return ResponseResult.ok(JSON.parseObject(str, Bing.class));
     }
+
 }
 

@@ -33,3 +33,23 @@ CREATE TABLE `top_summary_data` (
   CONSTRAINT `FK_5b3bumbvww0db9jm4oa5fsxxf` FOREIGN KEY (`original_data_id`) REFERENCES `original_top_summary_data` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=307899 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `bing_image` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `startdate` varchar(50) DEFAULT NULL,
+  `fullstartdate` varchar(50) DEFAULT NULL,
+  `enddate` varchar(50) DEFAULT NULL,
+  `url` text,
+  `urlbase` text,
+  `copyright` varchar(500) DEFAULT NULL,
+  `copyrightlink` text,
+  `title` varchar(500) DEFAULT NULL,
+  `quiz` text,
+  `wp` int(11) DEFAULT NULL,
+  `hsh` varchar(255) DEFAULT NULL,
+  `drk` int(255) DEFAULT NULL,
+  `top` int(255) DEFAULT NULL,
+  `bot` int(255) DEFAULT NULL,
+  `region` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地区',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
