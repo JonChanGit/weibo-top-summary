@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2018-11-16
  */
 public interface OriginalTopSummaryDataService extends IService<OriginalTopSummaryData> {
-
+    OriginalTopSummaryData getLast();
 }

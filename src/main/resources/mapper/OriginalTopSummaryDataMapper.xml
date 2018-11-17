@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jonpad.weibotopsummary.mapper.OriginalTopSummaryDataMapper">
+
+	<resultMap id="originalTopSummaryDataRM" type="cn.com.jonpad.weibotopsummary.entities.OriginalTopSummaryData" autoMapping="true">
+		<id column="id" property="id"></id>
+		<collection property="dataList" ofType="cn.com.jonpad.weibotopsummary.entities.TopSummaryData" columnPrefix="ts_" autoMapping="true">
+			<id property="id" column="post_id"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getLast" resultMap="originalTopSummaryDataRM">
+	  	SELECT ots.*,
+			ts.id as ts_id,
+			ts.content as ts_content,
+			ts.hots as ts_hots,
+			ts.link as ts_link,
+			ts.mark as ts_mark
+		FROM original_top_summary_data ots
+		LEFT JOIN top_summary_data ts ON ots.id = ts.original_data_id
+		WHERE ots.create_date_time = (SELECT MAX(create_date_time) FROM original_top_summary_data)
+		ORDER BY (ts.mark+0) desc
+	</select>
+</mapper>

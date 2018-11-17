@@ -10,4 +10,10 @@ import org.springframework.stereotype.Repository;
  * @date 2018/11/15 23:27
  */
 public interface OriginalTopSummaryDataMapper extends BaseMapper<OriginalTopSummaryData> {
+
+    /**
+     * 获取最后一个
+     * @return
+     */
+    OriginalTopSummaryData getLast();
 }

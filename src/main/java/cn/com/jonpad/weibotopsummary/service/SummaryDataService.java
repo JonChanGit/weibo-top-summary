@@ -2,14 +2,15 @@ package cn.com.jonpad.weibotopsummary.service;
 
 import cn.com.jonpad.weibotopsummary.entities.OriginalTopSummaryData;
 import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
-import cn.com.jonpad.weibotopsummary.mapper.OriginalTopSummaryDataMapper;
-import cn.com.jonpad.weibotopsummary.mapper.TopSummaryDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Jon Chan
@@ -18,21 +19,44 @@ import java.util.List;
 @Slf4j
 @Service
 public class SummaryDataService {
-	@Autowired
-	private OriginalTopSummaryDataService originalTopSummaryDataService;
-	@Autowired
-	private TopSummaryDataService topSummaryDataService;
+    @Autowired
+    private OriginalTopSummaryDataService originalTopSummaryDataService;
+    @Autowired
+    private TopSummaryDataService topSummaryDataService;
 
-	/**
-	 *
-	 * @param data
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	public void insert(OriginalTopSummaryData data){
-		originalTopSummaryDataService.save(data);
-		List<TopSummaryData> dataList = data.getDataList();
-		dataList.forEach(item -> item.setOriginalDataId(data.getId()));
-		topSummaryDataService.saveBatch(dataList);
-		log.info("Operation completed! {} items",dataList.size());
-	}
+    /**
+     * @param data
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void insert(OriginalTopSummaryData data) {
+        originalTopSummaryDataService.save(data);
+        List<TopSummaryData> dataList = data.getDataList();
+        dataList.forEach(item -> item.setOriginalDataId(data.getId()));
+        topSummaryDataService.saveBatch(dataList);
+        log.info("Operation completed! {} items", dataList.size());
+    }
+
+    public List<TopSummaryData> getLast(Integer size) {
+        OriginalTopSummaryData last = originalTopSummaryDataService.getLast();
+        List<TopSummaryData> list = last.getDataList();
+        if (size == null || 0 <= size) {
+            return list;
+        }else {
+            List<TopSummaryData> collect = list.stream().limit(size - 1).collect(Collectors.toList());
+            Optional<TopSummaryData> one = list.stream().filter(item -> {
+                if (StringUtils.isEmpty(item.getMark())) {
+                    return true;
+                } else {
+                    if (item != null && StringUtils.isEmpty(item.getMark().trim())) {
+                        return true;
+                    }
+                    return false;
+                }
+            }).findFirst();
+            if (one.isPresent()){
+                collect.add(one.get());
+            }
+        }
+        return list;
+    }
 }

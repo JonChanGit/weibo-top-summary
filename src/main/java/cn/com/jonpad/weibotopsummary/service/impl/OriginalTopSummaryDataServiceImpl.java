@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OriginalTopSummaryDataServiceImpl extends ServiceImpl<OriginalTopSummaryDataMapper, OriginalTopSummaryData> implements OriginalTopSummaryDataService {
 
+    @Override
+    public OriginalTopSummaryData getLast() {
+        return baseMapper.getLast();
+    }
 }

@@ -7,6 +7,14 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+  mapper-locations: classpath*:mapper/**.xml
+########## Mybatis 自身配置 ##########
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: partial
+  mapper-locations: classpath:mapper/**.xml
+  type-aliases-package: cn.com.jonpad.weibotopsummary.entities
 
 app:
   client-id: clientapp
