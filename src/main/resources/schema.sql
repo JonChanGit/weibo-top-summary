@@ -38,12 +38,12 @@ CREATE TABLE `bing_image` (
   `startdate` varchar(50) DEFAULT NULL,
   `fullstartdate` varchar(50) DEFAULT NULL,
   `enddate` varchar(50) DEFAULT NULL,
-  `url` text,
-  `urlbase` text,
+  `url` longtext,
+  `urlbase` longtext,
   `copyright` varchar(500) DEFAULT NULL,
-  `copyrightlink` text,
+  `copyrightlink` longtext,
   `title` varchar(500) DEFAULT NULL,
-  `quiz` text,
+  `quiz` longtext,
   `wp` int(11) DEFAULT NULL,
   `hsh` varchar(255) DEFAULT NULL,
   `drk` int(255) DEFAULT NULL,
@@ -51,5 +51,6 @@ CREATE TABLE `bing_image` (
   `bot` int(255) DEFAULT NULL,
   `region` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '地区',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_bing_image_1` (`startdate`,`region`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
