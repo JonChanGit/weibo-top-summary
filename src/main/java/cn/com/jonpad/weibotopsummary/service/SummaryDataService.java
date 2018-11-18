@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
+ * 热点推送思路
+ * 在插入时过滤出热点数据
  * @author Jon Chan
  * @date 2018/11/16 22:15
  */
@@ -67,4 +69,9 @@ public class SummaryDataService {
             return collect;
         }
     }
+
+    public void calculate(List<TopSummaryData> oData){
+
+    }
+
 }

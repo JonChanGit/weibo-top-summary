@@ -46,7 +46,7 @@ public class IndexController {
     public ResponseResult<Bing> bing(
             @ApiParam("个数,最大8")
             @RequestParam(required = false) Integer size){
-        String str = getBing.getBingData(size, BingImage.RegionMeta.EN_US);
+        String str = getBing.getBingData(size, BingImage.RegionMeta.ZH_CN);
         if(StringUtils.isEmpty(str)){
             return ResponseResult.faill();
         }
