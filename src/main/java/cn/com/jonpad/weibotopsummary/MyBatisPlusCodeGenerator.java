@@ -52,7 +52,7 @@ public class MyBatisPlusCodeGenerator {
 		gc.setOutputDir(projectPath + "/src/main/java")
 				.setAuthor("Jon Chan")
 				.setOpen(false)
-				// .setSwagger2(true)
+				.setSwagger2(true)
 				.setDateType(DateType.TIME_PACK)
 				.setMapperName("%sDao")
 				.setXmlName("%sDao")

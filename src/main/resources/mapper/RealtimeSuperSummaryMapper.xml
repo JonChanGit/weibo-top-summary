@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jonpad.weibotopsummary.mapper.RealtimeSuperSummaryMapper">
+
+    <select id="findRealtimeSuperSummaryFromLatestOriginalDataByContent"
+            resultType="cn.com.jonpad.weibotopsummary.entities.RealtimeSuperSummary">
+        SELECT rss.item FROM `realtime_super_summary` rss
+        LEFT JOIN top_summary_data tsd ON tsd.id = rss.tsd_first_id
+        LEFT JOIN original_top_summary_data otsd ON otsd.id = tsd.original_data_id
+        WHERE otsd.id = (SELECT MAX(id) FROM original_top_summary_data)
+        and tsd.content in (
+        <foreach collection="contentList" index="idx" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+</mapper>
