@@ -3,6 +3,7 @@ package cn.com.jonpad.weibotopsummary;
 import cn.com.jonpad.weibotopsummary.entities.User;
 import cn.com.jonpad.weibotopsummary.mapper.UserMapper;
 import cn.com.jonpad.weibotopsummary.service.SummaryDataService;
+import cn.com.jonpad.weibotopsummary.task.GetLagouData;
 import cn.com.jonpad.weibotopsummary.task.GetTopSummaryData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Consts;
@@ -30,6 +31,8 @@ import java.util.List;
 public class WeiboTopSummaryApplicationTests {
     @Resource(name = "httpClientManagerFactoryBen")
     private CloseableHttpClient client;
+    @Autowired
+    private GetLagouData data;
 
     @Test
     public void contextLoads() {
@@ -37,5 +40,8 @@ public class WeiboTopSummaryApplicationTests {
 
     @Test
     public void httpTest() throws Exception {
+        data.executeGetData();
     }
+
+
 }
