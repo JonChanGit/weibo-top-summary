@@ -1,6 +1,8 @@
 
 # wb 热搜接口
 
+[Author](https://jonpad.com.cn)
+
 ### HTML解析
 [official website](https://jsoup.org/)
 
