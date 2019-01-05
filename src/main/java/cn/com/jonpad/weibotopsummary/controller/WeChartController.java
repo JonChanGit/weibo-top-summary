@@ -96,30 +96,25 @@ public class WeChartController extends BaseController {
     public Object test() throws Exception{
         OriginalTopSummaryData topSummaryData = GetTopSummaryData.getTopSummaryData();
         List<TopSummaryData> supperSummaryList = GetTopSummaryData.checkSupperSummary(topSummaryData.getDataList());
-        //if(supperSummaryList.size() > 0){
-            // 本次包含超级话题
-
-            StringBuilder sb = new StringBuilder("本时段热门话题：\n\r");
-            final Integer[] i = {0};
-        topSummaryData.getDataList().forEach(tsd -> {
-            String content = tsd.getContent();
-            if(content.contains("<img")){
-                int begin = content.indexOf("<img");
-                //int end = content.indexOf(" >");
-                content = content.substring(0, begin-1);
-            }
-                sb.append(i[0]++)
-                        .append("\t")
-                        .append(content)
-                        .append("\t")
-                        .append(tsd.getHots())
-                        .append("\t")
-                        .append(tsd.getMark())
-                        .append("\n\r");
-            });
-            Object o = weChartConfiguration.sendMessage(sb.toString());
-            return o;
-        //}
-       // return "SUCCESS";
+        StringBuilder sb = new StringBuilder("本时段热门话题：\n\r");
+        final Integer[] i = {0};
+        supperSummaryList.forEach(tsd -> {
+        String content = tsd.getContent();
+        if(content.contains("<img")){
+            int begin = content.indexOf("<img");
+            //int end = content.indexOf(" >");
+            content = content.substring(0, begin-1);
+        }
+            sb.append(i[0]++)
+                    .append("\t")
+                    .append(content)
+                    .append("\t")
+                    .append(tsd.getHots())
+                    .append("\t")
+                    .append(tsd.getMark())
+                    .append("\n\r");
+        });
+        Object o = weChartConfiguration.sendMessage(sb.toString());
+        return o;
     }
 }

@@ -108,7 +108,7 @@ public class GetTopSummaryData {
      */
     public static List<TopSummaryData> checkSupperSummary(List<TopSummaryData> list){
         return list.stream()
-                .filter(item -> TopSummaryData.Marks.BURST.equals(item.getMark()) || TopSummaryData.Marks.BOIL.equals(item.getMark()))
+                .filter(item ->TopSummaryData.Marks.BURST.equals(item.getHots()) || TopSummaryData.Marks.BOIL.equals(item.getHots()))
                 .collect(Collectors.toList());
     }
 
