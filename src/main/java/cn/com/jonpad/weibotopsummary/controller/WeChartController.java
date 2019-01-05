@@ -1,13 +1,16 @@
 package cn.com.jonpad.weibotopsummary.controller;
 
 
-import cn.com.jonpad.weibotopsummary.controller.BaseController;
+import cn.com.jonpad.weibotopsummary.config.WeChartConfiguration;
+import cn.com.jonpad.weibotopsummary.task.WeChartTimer;
 import com.qq.weixin.mp.aes.SHA1;
-import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import weixin.popular.bean.token.Token;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
@@ -28,13 +31,8 @@ import java.util.Collections;
 @Slf4j
 public class WeChartController extends BaseController {
 
-    private static String appID = "wx49ba225c360db1ea";
-    private static String appsecret = "KV1RdqZBcorcj1VBnDwLXr";
-    /**
-     * 公众平台上，开发者设置的token
-     */
-    private static String token = "KV1RdqZBcorcj1VBnDwLXr";
-    private static String encodingAesKey = "LH2lKV1RdqZBcorcj1VBnDwLXrbtmY7RWZcn1abl10F";
+    @Autowired
+    WeChartConfiguration weChartConfiguration;
 
     /**
      *
@@ -53,7 +51,7 @@ public class WeChartController extends BaseController {
             HttpServletResponse response) throws Exception{
         log.info("{},{},{},{}",signature,timestamp,nonce,echostr);
         //检查消息是否来自微信服务器
-        String _echostr=checkSignature(signature,timestamp,nonce, echostr,token);
+        String _echostr=checkSignature(signature,timestamp,nonce, echostr,weChartConfiguration.getToken());
 
         if(echostr.equals(_echostr)){
             log.info("SUCCESS!");
@@ -85,4 +83,8 @@ public class WeChartController extends BaseController {
         return null;
     }
 
+    @GetMapping("refreshTokan")
+    public Token refreshTokan (){
+        return weChartConfiguration.getAppToken();
+    }
 }
