@@ -1,5 +1,6 @@
 package cn.com.jonpad.weibotopsummary.task;
 
+import cn.com.jonpad.weibotopsummary.config.WeChartConfiguration;
 import cn.com.jonpad.weibotopsummary.entities.OriginalTopSummaryData;
 import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
 import cn.com.jonpad.weibotopsummary.service.RealtimeSuperSummaryService;
@@ -11,11 +12,16 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import weixin.popular.api.MessageAPI;
+import weixin.popular.api.UserAPI;
+import weixin.popular.bean.message.MessageSendResult;
+import weixin.popular.bean.message.massmessage.MassMessage;
+import weixin.popular.bean.message.massmessage.MassTextMessage;
+import weixin.popular.bean.user.FollowResult;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +31,9 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class GetTopSummaryData {
+
+    @Autowired
+    WeChartConfiguration weChartConfiguration;
 
     @Autowired
     private SummaryDataService service;
@@ -37,11 +46,29 @@ public class GetTopSummaryData {
         log.info("executeGetData");
         OriginalTopSummaryData data = getTopSummaryData();
         service.insert(data);
-        List<TopSummaryData> supperSummaryList = data.getDataList().stream()
-                .filter(item -> TopSummaryData.Marks.BURST.equals(item.getMark()) || TopSummaryData.Marks.BOIL.equals(item.getMark()))
-                .collect(Collectors.toList());
+        List<TopSummaryData> supperSummaryList = checkSupperSummary(data.getDataList());
 		if(supperSummaryList.size() > 0){
 		    // 本次包含超级话题
+
+            StringBuilder sb = new StringBuilder("本时段超级话题：\n\r");
+            final Integer[] i = {0};
+            supperSummaryList.forEach(tsd -> {
+                String content = tsd.getContent();
+                if(content.contains("<img")){
+                    int begin = content.indexOf("<img");
+                    //int end = content.indexOf(" >");
+                    content = content.substring(0, begin-1);
+                }
+                sb.append(i[0]++)
+                        .append("\t")
+                        .append(content)
+                        .append("\t")
+                        .append(tsd.getHots())
+                        .append("\t")
+                        .append(tsd.getMark())
+                        .append("\n\r");
+            });
+            weChartConfiguration.sendMessage(sb.toString());
         }
     }
 
@@ -72,6 +99,17 @@ public class GetTopSummaryData {
             list.add(e);
         });
         return data.setDataList(list);
+    }
+
+    /**
+     * 查找超级话题，
+     * @param list 超级话题列表
+     * @return
+     */
+    public static List<TopSummaryData> checkSupperSummary(List<TopSummaryData> list){
+        return list.stream()
+                .filter(item -> TopSummaryData.Marks.BURST.equals(item.getMark()) || TopSummaryData.Marks.BOIL.equals(item.getMark()))
+                .collect(Collectors.toList());
     }
 
 }

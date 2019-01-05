@@ -138,6 +138,7 @@
         </dependency>
         <!-- /http所需包 -->
 
+        <!--https://github.com/liyiorg/weixin-popular-->
         <dependency>
             <groupId>com.github.liyiorg</groupId>
             <artifactId>weixin-popular</artifactId>

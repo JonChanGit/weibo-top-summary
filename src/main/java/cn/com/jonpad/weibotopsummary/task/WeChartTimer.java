@@ -19,10 +19,10 @@ public class WeChartTimer {
     @Autowired
     WeChartConfiguration weChartConfiguration;
 
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 0 */2 * * *")
     public Token refreshToken() {
         Token token = TokenAPI.token(weChartConfiguration.getAppID(), weChartConfiguration.getAppsecret());
-        log.info("refreshToken: ==> {}",token);
+        log.info("refreshToken: ==> {},{}",token.getAccess_token(),token.getExpires_in());
         weChartConfiguration.setAppToken(token);
         return token;
     }
