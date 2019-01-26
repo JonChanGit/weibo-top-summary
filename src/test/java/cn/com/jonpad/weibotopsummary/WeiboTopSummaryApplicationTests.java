@@ -32,7 +32,7 @@ public class WeiboTopSummaryApplicationTests {
     @Resource(name = "httpClientManagerFactoryBen")
     private CloseableHttpClient client;
     @Autowired
-    private GetLagouData data;
+    private GetTopSummaryData data;
 
     @Test
     public void contextLoads() {

@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * 热点指mark标记为爆/沸时
  * 使用新表记录实时处于爆款状态
@@ -43,6 +47,8 @@ public class TopSummaryData {
     private String mark;
     @JSONField(deserialize = false)
     private Long  originalDataId;
+    @TableField(exist = false)
+    private Long createDateTime;
 
     /**
      *
@@ -71,5 +77,14 @@ public class TopSummaryData {
         String HOT = "热";
         String FRESH = "新";
 
+    }
+
+    @JSONField (format="yyyy-MM-dd HH:mm:ss")
+    public Date getCreateTime() {
+        if(createDateTime != null && createDateTime > 0){
+            return Date.from(Instant.ofEpochMilli(createDateTime));
+        }else {
+            return null;
+        }
     }
 }

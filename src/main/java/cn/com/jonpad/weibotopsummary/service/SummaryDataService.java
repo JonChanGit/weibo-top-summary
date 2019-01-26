@@ -74,4 +74,7 @@ public class SummaryDataService {
 
     }
 
+    public List<TopSummaryData> find(String key) {
+        return topSummaryDataService.find(key);
+    }
 }

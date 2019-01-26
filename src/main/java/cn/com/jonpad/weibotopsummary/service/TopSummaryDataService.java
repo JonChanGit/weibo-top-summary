@@ -3,6 +3,8 @@ package cn.com.jonpad.weibotopsummary.service;
 import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TopSummaryDataService extends IService<TopSummaryData> {
 
+    List<TopSummaryData> find(String key);
 }

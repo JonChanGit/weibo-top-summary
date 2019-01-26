@@ -6,6 +6,8 @@ import cn.com.jonpad.weibotopsummary.service.TopSummaryDataService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TopSummaryDataServiceImpl extends ServiceImpl<TopSummaryDataMapper, TopSummaryData> implements TopSummaryDataService {
 
+    @Override
+    public List<TopSummaryData> find(String key) {
+        return baseMapper.find(key);
+    }
 }

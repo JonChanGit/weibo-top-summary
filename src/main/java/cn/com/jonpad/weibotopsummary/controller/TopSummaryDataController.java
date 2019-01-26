@@ -49,4 +49,12 @@ public class TopSummaryDataController {
     ){
         return ResponseResult.ok(service.getLast(size));
     }
+    @GetMapping("search")
+    @ApiOperation(value="查找最近一段时间的数据", notes="最多100条")
+    public ResponseResult<List<TopSummaryData>> getLast(
+            @ApiParam("个数,最大数量为官方发布的数量，通常是51")
+            @RequestParam(required = false, defaultValue = "") String key
+    ){
+        return ResponseResult.ok(service.find(key));
+    }
 }
