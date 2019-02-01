@@ -60,7 +60,6 @@ public class GetTopSummaryData {
         Instant endTime = Instant.now();
         Instant beginTime = endTime.plus(-1L, ChronoUnit.DAYS);
         List<TopSummaryData> topSummaryData = service.getTopSummaryData(beginTime, endTime);
-        log.info("{}", topSummaryData);
         if(topSummaryData.size() > 0){
             // 本次包含超级话题
 
