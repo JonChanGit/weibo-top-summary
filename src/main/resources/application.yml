@@ -23,6 +23,8 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath*:mapper/**.xml
+logging.level:
+  cn.com.jonpad.weibotopsummary: DEBUG
 ########## Mybatis 自身配置 ##########
 mybatis:
   configuration:
