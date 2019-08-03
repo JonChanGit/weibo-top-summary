@@ -5,6 +5,7 @@
         SELECT t.*, o.create_date_time as create_date_time FROM `top_summary_data` t
         LEFT JOIN original_top_summary_data o ON o.id = t.original_data_id
         WHERE content like CONCAT('%',#{key},'%')
+        	ORDER BY id DESC
         LIMIT 100
     </select>
 </mapper>

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.function.Function;
 
 import cn.com.jonpad.weibotopsummary.task.GetTopSummaryData;
 
@@ -16,6 +17,9 @@ public class WeiboTopSummaryTests {
     @Test
     public void jsoupTest() throws IOException {
         // GetTopSummaryData.getTopSummaryData();
+        // x->((y)->x+y)
+        Function<Integer,Function<Integer,Integer>> fun = x->(y)->x+y;
+        System.out.println(fun.apply(2).apply(3));
     }
 
     @Test
