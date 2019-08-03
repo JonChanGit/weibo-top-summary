@@ -55,7 +55,7 @@ public class GetTopSummaryData {
      * 推送超级话题
      * @throws Exception
      */
-    @Scheduled(cron = "0 8 11,16,21 * * ?")
+    @Scheduled(cron = "0 8 0,9,12,16,21 * * ? ")
     public void pushSupperSummary() throws Exception {
         Instant endTime = Instant.now();
         Instant beginTime = endTime.plus(-1L, ChronoUnit.DAYS);
