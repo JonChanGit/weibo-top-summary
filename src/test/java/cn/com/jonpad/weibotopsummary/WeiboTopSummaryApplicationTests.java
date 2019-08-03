@@ -40,7 +40,7 @@ public class WeiboTopSummaryApplicationTests {
 
     @Test
     public void httpTest() throws Exception {
-        data.executeGetData();
+        data.pushSupperSummary();
     }
 
 

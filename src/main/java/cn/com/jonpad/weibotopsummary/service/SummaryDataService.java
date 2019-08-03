@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,5 +77,13 @@ public class SummaryDataService {
 
     public List<TopSummaryData> find(String key) {
         return topSummaryDataService.find(key);
+    }
+
+    /**
+     * 获取指点时间的超级话题
+     * @param beginTime
+     */
+    public List<TopSummaryData> getTopSummaryData(Instant beginTime, Instant endTime) {
+        return topSummaryDataService.getTopSummaryData(beginTime,endTime);
     }
 }

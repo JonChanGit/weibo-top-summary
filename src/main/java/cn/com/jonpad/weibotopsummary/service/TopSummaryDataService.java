@@ -3,6 +3,7 @@ package cn.com.jonpad.weibotopsummary.service;
 import cn.com.jonpad.weibotopsummary.entities.TopSummaryData;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -16,4 +17,6 @@ import java.util.List;
 public interface TopSummaryDataService extends IService<TopSummaryData> {
 
     List<TopSummaryData> find(String key);
+
+    List<TopSummaryData> getTopSummaryData(Instant beginTime, Instant endTime);
 }

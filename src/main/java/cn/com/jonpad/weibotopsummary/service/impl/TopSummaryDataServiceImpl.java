@@ -6,6 +6,8 @@ import cn.com.jonpad.weibotopsummary.service.TopSummaryDataService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,5 +24,11 @@ public class TopSummaryDataServiceImpl extends ServiceImpl<TopSummaryDataMapper,
     @Override
     public List<TopSummaryData> find(String key) {
         return baseMapper.find(key);
+    }
+
+
+    @Override
+    public List<TopSummaryData> getTopSummaryData(Instant beginTime, Instant endTime) {
+        return baseMapper.getTopSummaryData(beginTime.getEpochSecond()*1000, endTime.getEpochSecond()*1000);
     }
 }

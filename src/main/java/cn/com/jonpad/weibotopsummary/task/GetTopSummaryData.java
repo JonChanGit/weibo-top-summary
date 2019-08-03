@@ -20,6 +20,8 @@ import weixin.popular.bean.message.massmessage.MassTextMessage;
 import weixin.popular.bean.user.FollowResult;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -46,13 +48,24 @@ public class GetTopSummaryData {
         log.info("executeGetData");
         OriginalTopSummaryData data = getTopSummaryData();
         service.insert(data);
-        List<TopSummaryData> supperSummaryList = checkSupperSummary(data.getDataList());
-		if(supperSummaryList.size() > 0){
-		    // 本次包含超级话题
+        // 取消每个时段的推送
+    }
+
+    /**
+     * 推送超级话题
+     * @throws Exception
+     */
+    @Scheduled(cron = "0 8 11,16,21 * * ?")
+    public void pushSupperSummary() throws Exception {
+        Instant endTime = Instant.now();
+        Instant beginTime = endTime.plus(-1L, ChronoUnit.DAYS);
+        List<TopSummaryData> topSummaryData = service.getTopSummaryData(beginTime, endTime);
+        if(topSummaryData.size() > 0){
+            // 本次包含超级话题
 
             StringBuilder sb = new StringBuilder("本时段超级话题：\n\r");
             final Integer[] i = {0};
-            supperSummaryList.forEach(tsd -> {
+            topSummaryData.forEach(tsd -> {
                 String content = tsd.getContent();
                 if(content.contains("<img")){
                     int begin = content.indexOf("<img");

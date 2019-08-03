@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.jonpad.weibotopsummary.mapper.TopSummaryDataMapper">
-    <select id="find" resultType="cn.com.jonpad.weibotopsummary.entities.TopSummaryData">
+	<select id="find" resultType="cn.com.jonpad.weibotopsummary.entities.TopSummaryData">
         SELECT t.*, o.create_date_time as create_date_time FROM `top_summary_data` t
         LEFT JOIN original_top_summary_data o ON o.id = t.original_data_id
         WHERE content like CONCAT('%',#{key},'%')
         	ORDER BY id DESC
         LIMIT 100
+    </select>
+	<select id="getTopSummaryData" resultType="cn.com.jonpad.weibotopsummary.entities.TopSummaryData">
+		select
+		`content`,
+		`hots`,
+		`link`,
+		MAX(`mark`) as mark,
+		`original_data_id`
+		FROM (
+		SELECT
+			t.`content`,
+			t.`hots`,
+			t.`link`,
+			t.`mark`,
+			t.`original_data_id`
+		FROM
+			`top_summary_data` AS t
+			LEFT JOIN original_top_summary_data o ON t.original_data_id = o.id
+		WHERE
+			hots IN ( '沸', '爆' )
+			AND o.create_date_time BETWEEN #{beginTime}
+			AND #{endTime}
+		) tmp
+		GROUP BY content
     </select>
 </mapper>
